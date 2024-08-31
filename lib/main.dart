@@ -1,5 +1,7 @@
+import 'package:bazaar/presentation/splash/bloc/splash_cubit.dart';
 import 'package:bazaar/presentation/splash/pages/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/configs/theme/app_theme.dart';
 
@@ -12,10 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.appTheme,
-      debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+    return BlocProvider(
+      create: (context) => SplashCubit()..appStarted(),
+      child: Center(
+        child: MaterialApp(
+          theme: AppTheme.appTheme,
+          debugShowCheckedModeBanner: false,
+          home: SplashPage(),
+        ),
+      ),
     );
   }
 }
