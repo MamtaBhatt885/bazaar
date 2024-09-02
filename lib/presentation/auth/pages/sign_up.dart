@@ -1,6 +1,7 @@
 import 'package:bazaar/common/helper/navigator/app_navigator.dart';
 import 'package:bazaar/common/widgets/appbar/app_bar.dart';
 import 'package:bazaar/presentation/auth/pages/enter_password.dart';
+import 'package:bazaar/presentation/auth/pages/gender_and_age_selection.dart';
 import 'package:bazaar/presentation/auth/pages/sign_in.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,7 @@ class SignUpPage extends StatelessWidget {
   Widget _continueButton(BuildContext context){
     return BasicAppButton(
       onPressed:(){
-        AppNavigator.push(context, EnterPassword());
+        AppNavigator.push(context, GenderAndAgeSelectionPage());
       } ,
       title:'Continue',
     );
