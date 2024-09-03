@@ -11,57 +11,37 @@ class Ages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: MediaQuery.of(context).size.height / 2.7,
-        child: BlocBuilder<AgesDisplayCubit,AgesDisplayState>(
-          builder: (context, state) {
-            if (state is AgesLoading) {
-              return Container(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator()
-              );
-            }
+    return Container(
+      height: MediaQuery
+          .of(context)
+          .size
+          .height/2,
+      child: BlocBuilder<AgesDisplayCubit,AgesDisplayState>(
+        builder: (context,state){
+          if(state is AgesLoading){
+            return CircularProgressIndicator();
+          }
+          if(State is AgesLoaded){
+            return _ages(state.ages);
+          }
+          if(state is AgesLoadFailure){
+            return Text(
+              state.message
+            );
+          }
+          return SizedBox();
+        },
+      )
 
-            if (state is AgesLoaded) {
-              return _ages(state.ages);
-            }
-
-            if (state is AgesLoadFailure) {
-              return Container(
-                alignment: Alignment.center,
-                child: Text(
-                    state.message
-                ),
-              );
-            }
-
-            return const SizedBox();
-          },
-        )
     );
   }
-
-  Widget _ages(List<QueryDocumentSnapshot<Map<String, dynamic>>> ages) {
+  
+  Widget _ages(List<QueryDocumentSnapshot<Map<String, dynamic>>> ages){
     return ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemBuilder: (context,index) {
-          return GestureDetector(
-            onTap: (){
-              Navigator.pop(context);
-              context.read<AgeSelectionCubit>().selectAge(
-                ages[index].data()['value'],
-              );
-            },
-            child: Text(
-              ages[index].data()['value'],
-              style: const TextStyle(
-                  fontSize: 18
-              ),
-            ),
-          );
+        itemBuilder: (context, index){
+          return Text(ages[index].data()['value']);
         },
-        separatorBuilder: (context,index) => const SizedBox(height: 20,),
-        itemCount: ages.length
-    );
+        separatorBuilder: (context,index) => SizedBox(height: 20,),
+        itemCount: ages.length);
   }
 }

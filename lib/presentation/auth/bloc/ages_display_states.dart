@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class AgesDisplayState {}
+abstract class AgesDisplayState {
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> get ages => null!;
+}
 
 class AgesLoading extends AgesDisplayState {}
 
