@@ -5,7 +5,7 @@ abstract class AuthRepository{
 
   Future<Either> signUp(UserCreationReq user);
 
-  getAges() {}
+  Future<Either> getAges();
 
 }
 

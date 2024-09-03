@@ -8,6 +8,7 @@ abstract class AuthFirebaseService{
 
 
   Future<Either> signup(UserCreationReq user);
+  Future<Either> getAges();
 
 
 }
@@ -50,6 +51,20 @@ return const Right(
 
       return Left(message);
     } 
+  }
+
+  @override
+  Future<Either> getAges() async{
+    try{
+      var returnedData = await FirebaseFirestore.instance.collection('Ages').get();
+      return Right(
+        returnedData.docs
+      );
+    } catch(e){
+return const
+Left('Please try again');
+    }
+
   }
 
   
