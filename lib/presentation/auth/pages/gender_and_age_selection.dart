@@ -14,8 +14,10 @@ import '../bloc/gender_selection_cubit.dart';
 import '../widgets/ages.dart';
 
 class GenderAndAgeSelectionPage extends StatelessWidget {
-  const GenderAndAgeSelectionPage({
+  final UserCreationReq userCreationReq;
 
+  const GenderAndAgeSelectionPage({
+   required this.userCreationReq,
     super.key
   });
 
@@ -180,7 +182,12 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
             builder: (context) {
               return BasicReactiveButton(
                   onPressed: (){
-
+                    userCreationReq.gender = context.read<GenderSelectionCubit>().selectedIndex as String?;
+                    userCreationReq.age = context.read<AgeSelectionCubit>().selectedAge as int?;
+                  context.read<ButtonStateCubit>().execute(
+                      usecase: SignUpUseCase(),
+                      params: userCreationReq
+                  );
                   },
                   title: 'Finish'
               );
