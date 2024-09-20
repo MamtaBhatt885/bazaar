@@ -4,6 +4,8 @@ import 'package:bazaar/presentation/splash/pages/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bazaar/service_locator.dart';
+
 
 import 'core/configs/theme/app_theme.dart';
 
@@ -12,6 +14,7 @@ Future<void> main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  await initializeDependencies();
   runApp(const MyApp());
 }
 
