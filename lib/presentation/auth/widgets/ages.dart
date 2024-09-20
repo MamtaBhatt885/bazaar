@@ -11,22 +11,27 @@ class Ages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery
           .of(context)
           .size
-          .height/2,
+          .height/2.7,
       child: BlocBuilder<AgesDisplayCubit,AgesDisplayState>(
         builder: (context,state){
           if(state is AgesLoading){
-            return CircularProgressIndicator();
+            return Container(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator());
           }
           if(State is AgesLoaded){
             return _ages(state.ages);
           }
           if(state is AgesLoadFailure){
-            return Text(
-              state.message
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                state.message
+              ),
             );
           }
           return SizedBox();
@@ -38,8 +43,13 @@ class Ages extends StatelessWidget {
   
   Widget _ages(List<QueryDocumentSnapshot<Map<String, dynamic>>> ages){
     return ListView.separated(
+      padding: EdgeInsets.all(16),
         itemBuilder: (context, index){
-          return Text(ages[index].data()['value']);
+          return Text(
+              ages[index].data()['value'],
+          style: TextStyle(fontSize:18)
+
+          );
         },
         separatorBuilder: (context,index) => SizedBox(height: 20,),
         itemCount: ages.length);
